@@ -18,13 +18,12 @@ def drawMovingCylnd():
     glPushMatrix()
     glRotatef(xrot, 1.0, 0.0, 0.0)  
     glRotatef(-yrot, 0.0, 0, 1.0)  
-    
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, [1.0,1.0,1.0])
-    quadratic = gluNewQuadric()
 
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, [1.0,1.0,1.0])
     
     glTranslatef(0, 0, -time/1000)
-    glutSolidCylinder(0.5, 1, 100, 100)
+    glutSolidCylinder(0.4, 0.9, 100, 100)
     glTranslatef(0, 0, time/1000)
 
     glPopMatrix() 
@@ -42,7 +41,7 @@ def init():
     yrot = 0.0                          # Величина вращения по оси y = 0
     ambient = (1.0, 1.0, 1.0, 1)        # Первые три числа цвет в формате RGB, а последнее - яркость
     treecolor = (0.9, 0.6, 0.3, 0.8)    # Коричневый цвет для ствола
-    lightpos = (2, -2, 0)          # Положение источника освещения по осям xyz
+    lightpos = (3, -2, 2)          # Положение источника освещения по осям xyz
 
     glClearColor(0.5, 0.5, 0.5, 1.0)                # Серый цвет для первоначальной закраски
     gluOrtho2D(-1.5, 1.5, -1.5, 1.5)                # Определяем границы рисования по горизонтали и вертикали
@@ -77,14 +76,13 @@ def draw():
     global xrot
     global yrot
     global lightpos
-    global greencolor
     global treecolor
     global time
     global flag
 
-    if (flag and abs(time) > 1000):
+    if (flag and abs(time) > 800):
         flag = False
-    elif (not flag and -time > 500):
+    elif (not flag and -time > 300):
         flag = True
 
     if (flag):
@@ -94,7 +92,6 @@ def draw():
     #glClear(GL_COLOR_BUFFER_BIT) 
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    glLightfv(GL_LIGHT0, GL_POSITION, lightpos)
     
     drawMovingCylnd()
     
